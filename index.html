@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>抖动的飞机</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #e0e0e0;
+        }
+
+        .plane {
+            font-size: 50px;
+            animation: shake 0.1s linear infinite;
+            will-change: transform;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes shake {
+            0% { transform: translate(-50%, -50%); }
+            25% { transform: translate(-52px, -48px); }
+            50% { transform: translate(-48px, -52px); }
+            75% { transform: translate(-52px, -48px); }
+            100% { transform: translate(-48px, -52px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="plane">✈️</div>
+
+    <script>
+        const plane = document.querySelector('.plane');
+
+        let speed = 2;
+        let direction = 1;
+
+        function movePlane() {
+            const currentLeft = plane.offsetLeft;
+
+            if (currentLeft + plane.offsetWidth > window.innerWidth || currentLeft < 0) {
+                direction = -direction;
+            }
+
+            plane.style.left = (currentLeft + speed * direction) + 'px';
+
+            requestAnimationFrame(movePlane);
+        }
+
+        movePlane();
+    </script>
+</body>
+</html>
